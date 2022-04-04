@@ -1,40 +1,56 @@
 package com.ds;
 
+import java.util.ArrayList;
+
 public class longestPalindrome {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println(longestPalindrome("babad"));
+		System.out.println(longestPalindrome("rdacqcadkgbsfd"));
 
 	}
 	
-	
+	public static  ArrayList<String> lst = new ArrayList<String>();
+	public static int max=0;
 	public static String longestPalindrome(String s) {
-		String pal = new String();
-		for(int i =0;i<s.length();i++)
+	
+		String Palindrome = null;
+		CheckForPalindrome(s);
+		for(String s1:lst)
 		{
-			
-			if(s.substring(i, s.length()-i).equals(revstr(s.substring(i, s.length()-i))))
+			if(max==s1.length())
 			{
-				 pal = s.substring(i, s.length()-i);
-				break;
+				Palindrome = s1;
 			}
+		}
+		return Palindrome;
+		
+	}
+	
+	public static void CheckForPalindrome(String s) {
+		String str = null;
+		if(!lst.contains(s))
+		{
+			StringBuilder sb = new StringBuilder(s);
+			if(s.equals(sb.reverse().toString()))
+			{
+				if(max<s.length())
+				{
+					lst.add(s);
+					max = s.length();
+				}
+				
+			}
+			if(s.length()<=1)
+			{
+				return;
+			}
+			CheckForPalindrome(s.substring(1,s.length()));
+			 CheckForPalindrome(s.substring(0,s.length()-1));
 			
 		}
 		
-		return pal;
-		
-        
-    }
-	
-	
-	public static String revstr(String str)
-	{
-		if(str.length() == 1)
-		{
-			return str;
 		}
-		return String.valueOf(str.charAt(str.length()-1)+revstr(str.substring(0,str.length()-1)));
-	}
+		
+	
 
 }
